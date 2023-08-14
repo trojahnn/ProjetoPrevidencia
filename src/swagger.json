@@ -1,0 +1,379 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de cadastro de produtos e clientes",
+        "description": "API desenvolvida com a finalidade de realizar o cadastro de clientes e produtos, bem como a listagem dos mesmos.",
+        "contact": { 
+            "name": "Luiz Henrique Trojahn",
+            "email": "henrique@trojahn.com.br"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "Ambiente de desenvolvimento"
+        }
+    ],
+    "paths": { 
+        "/clientes": {
+            "post": {
+                "summary": "Cadastra um novo cliente",
+                "description": "Rota responsável por cadastrar um novo cliente.",
+                "tags": [
+                    "Clientes"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                               "$ref": "#/components/schemas/Clientes"
+                            },
+                            "clientes": {
+                                "value": {
+                                    "cpf": "45645645600",
+                                    "nome": "Luiz Henrique Trojahn",
+                                    "email": "henrique@trojahn.com.br",
+                                    "dataDeNascimento": "1990-01-01",
+                                    "genero": "Masculino",
+                                    "rendaMensal": 1000
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": { 
+                        "description": "Cliente cadastrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Resposta"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/produtos": {
+            "post": {
+                "summary": "Cadastra um novo produto",
+                "description": "Rota responsável por cadastrar um novo produto.",
+                "tags": [
+                    "Produtos"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                               "$ref": "#/components/schemas/Produtos"
+                            },
+                            "products": {
+                                "value": {
+                                    "nome": "Brasilprev Longo Prazo",
+                                    "susep": "15414900840201817",
+                                    "expiracaoDeVenda": "2021-01-01 12:00:00",
+                                    "valorMinimoAporteInicial": 1000.0,
+                                    "valorMinimoAporteExtra": 100.0,
+                                    "idadeDeEntrada": 18,
+                                    "idadeDeSaida": 60,
+                                    "carenciaInicialDeResgate": 60, 
+                                    "carenciaEntreResgates": 30
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": { 
+                        "description": "Produto cadastrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Resposta"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/produtos/assinar": {
+            "post": {
+                "summary": "Realiza a assinatura de um plano",
+                "description": "Rota para realizar a contratação de um plano.",
+                "tags": [
+                    "Assinatura"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                               "$ref": "#/components/schemas/Assinatura"
+                            },
+                            "assinatura": {
+                                "value": {
+                                    "idCliente": "18dfeb91-459a-4bc7-9cdd-d93b41f7bf62",
+                                    "idProduto": "30f6b23f-c93d-4cf9-8916-bcdb9fac83df",
+                                    "aporte": 2000.00,
+                                    "dataDaContratacao": "2022-04-05 12:00:00",
+                                    "idadeDeAposentadoria": 60
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": { 
+                        "description": "Assinatura realizada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Resposta"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/produtos/depositar": {
+            "post": {
+                "summary": "Realiza o aporte em um plano",
+                "description": "Rota para realizar o aporte em um plano.",
+                "tags": [
+                    "Aporte"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                               "$ref": "#/components/schemas/Aporte"
+                            },
+                            "assinatura": {
+                                "value": {
+                                    "idCliente": "77a819c5-bb2f-4ade-84a2-a81dfc67428b",
+                                    "idPlano": "24fb6c42-6234-402e-ac84-2306d8c16137",
+                                    "valorAporte": 100.00
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": { 
+                        "description": "Aporte realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Resposta"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/produtos/sacar": {
+            "post": {
+                "summary": "Realiza o resgate em um plano",
+                "description": "Rota para realizar o resgate em um plano.",
+                "tags": [
+                    "Resgate"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                               "$ref": "#/components/schemas/Resgate"
+                            },
+                            "assinatura": {
+                                "value": {
+                                    "idPlano": "24fb6c42-6234-402e-ac84-2306d8c16137",
+                                    "valorResgate": 1000.00
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": { 
+                        "description": "Resgate realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Resposta"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Clientes": {
+                "type": "object",
+                "properties": {
+                    "cpf": {
+                        "type": "string",
+                        "description": "CPF do cliente",
+                        "example": "45645645600"
+                    },
+                    "nome": {
+                        "type": "string",
+                        "description": "Nome do cliente",
+                        "example": "Luiz Henrique Trojahn"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "E-mail do cliente",
+                        "example": "henrique@trojahn.com.br"
+                    },
+                    "dataDeNascimento": {
+                        "type": "string",
+                        "description": "Data de nascimento do cliente",
+                        "example": "1990-01-01"
+                    },
+                    "genero": {
+                        "type": "string",
+                        "description": "Gênero do cliente",
+                        "example": "Masculino"
+                    },
+                    "rendaMensal": {
+                        "type": "number",
+                        "description": "Renda mensal do cliente",
+                        "example": 1000
+                    }
+                }
+            },
+            "Produtos": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string",
+                        "description": "Nome do produto",
+                        "example": "Brasilprev Longo Prazo"
+                    },
+                    "susep": {
+                        "type": "string",
+                        "description": "Número da SUSEP do produto",
+                        "example": "15414900840201817"
+                    },
+                    "expiracaoDeVenda": {
+                        "type": "string",
+                        "description": "Data de expiração de venda do produto",
+                        "example": "2021-01-01T12:00:00.000Z"
+                    },
+                    "valorMinimoAporteInicial": {
+                        "type": "number",
+                        "description": "Valor mínimo de aporte inicial do produto",
+                        "example": 1000.0
+                    },
+                    "valorMinimoAporteExtra": {
+                        "type": "number",
+                        "description": "Valor mínimo de aporte extra do produto",
+                        "example": 100.0
+                    },
+                    "idadeDeEntrada": {
+                        "type": "number",
+                        "description": "idade mínima para comprar o produto",
+                        "example": 18
+                    },
+                    "idadeDeSaida": {
+                        "type": "number",
+                        "description": "idade máxima para começar a usufruir do benefício",
+                        "example": 60
+                    },
+                    "carenciaInicialDeResgate": {
+                        "type": "number",
+                        "description": "em dias - carência para realizar o primeiro resgate",
+                        "example": 60
+                    },
+                    "carenciaEntreResgates": {
+                        "type": "number",
+                        "description": "em dias - carência para realizar outro resgate após",
+                        "example": 30
+                    }
+                }
+            },
+            "Assinatura": {
+                "type": "object",
+                "properties": {
+                    "idCliente": {
+                        "type": "string",
+                        "description": "ID do cliente",
+                        "example": "18dfeb91-459a-4bc7-9cdd-d93b41f7bf62"
+                    },
+                    "idProduto": {
+                        "type": "string",
+                        "description": "ID do produto",
+                        "example": "30f6b23f-c93d-4cf9-8916-bcdb9fac83df"
+                    },
+                    "aporte": {
+                        "type": "number",
+                        "description": "Valor do aporte",
+                        "example": 2000.00
+                    },
+                    "dataDaContratacao": {
+                        "type": "string",
+                        "description": "Data da contratação",
+                        "example": "2022-04-05T12:00:00.000Z"
+                    },
+                    "idadeDeAposentadoria": {
+                        "type": "number",
+                        "description": "Idade de aposentadoria",
+                        "example": 60
+                    }
+                }
+            },
+            "Aporte": {
+                "type": "object",
+                "properties": {
+                    "idCliente": {
+                        "type": "string",
+                        "description": "ID do cliente",
+                        "example": "77a819c5-bb2f-4ade-84a2-a81dfc67428b"
+                    },
+                    "idPlano": {
+                        "type": "string",
+                        "description": "ID do plano",
+                        "example": "24fb6c42-6234-402e-ac84-2306d8c16137"
+                    },
+                    "valorAporte": {
+                        "type": "number",
+                        "description": "Valor do aporte",
+                        "example": 100.00
+                    }
+                }
+            },
+            "Resgate": {
+                "type": "object",
+                "properties": {
+                    "idPlano": {
+                        "type": "string",
+                        "description": "ID do plano",
+                        "example": "24fb6c42-6234-402e-ac84-2306d8c16137"
+                    },
+                    "valorResgate": {
+                        "type": "number",
+                        "description": "Valor do resgate",
+                        "example": 1000.00
+                    }
+                }
+            },
+            "Resposta": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "ID do item cadastrado",
+                        "example": "04aac243-be46-4a72-830f-3f3d72f6082e"
+                    }
+                }
+            }
+        }
+    }
+}

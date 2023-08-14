@@ -1,0 +1,26 @@
+{
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  },
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "rootDir": "./src/",
+    "outDir": "./dist/",
+    "sourceMap": false,
+    "strict": false,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "compileOnSave": true,
+  "include": ["src/*.ts", "src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
